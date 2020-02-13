@@ -7,4 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface QuoteRepository extends JpaRepository<Quote, UUID> {
 
   Iterable<Quote> getAllByOrderByCreatedDesc();
+
+  Quote getQuoteById(UUID id);
+
 }
