@@ -79,13 +79,7 @@ public class QuoteController {
     Quote quote = get(quoteId);
     Source source = sourceRepository.getSourceById(sourceId);
     List<Source> sources = quote.getSources();
-    boolean matchFound = false;
-    for (Source s : sources) {
-      if (s.getId().equals(source.getId())){
-        matchFound = true;
-        break;
-      }
-    }
+    boolean matchFound = quoteHasSource(source, sources);
     if (!matchFound) {
       sources.add(source);
       quoteRepository.save(quote);
@@ -99,17 +93,22 @@ public class QuoteController {
     Quote quote = get(quoteId);
     Source source = sourceRepository.getSourceById(sourceId);
     List<Source> sources = quote.getSources();
-    boolean matchFound = false;
-    for (Source s : sources) {
-      if (s.getId().equals(source.getId())){
-        matchFound = true;
-        break;
-      }
-    }
+    boolean matchFound = quoteHasSource(source, sources);
     if (matchFound) {
       sources.remove(source);
       quoteRepository.save(quote);
     }
+  }
+
+  private boolean quoteHasSource(Source source, List<Source> sources) {
+    boolean matchFound = false;
+    for (Source s : sources) {
+      if (s.getId().equals(source.getId())) {
+        matchFound = true;
+        break;
+      }
+    }
+    return matchFound;
   }
 
 }
