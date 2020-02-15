@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
-  @ExceptionHandler(NoSuchElementException.class)
+  @ExceptionHandler({NoSuchElementException.class})
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public void notFound() {
 

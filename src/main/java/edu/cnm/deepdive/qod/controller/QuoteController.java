@@ -36,6 +36,7 @@ public class QuoteController {
     this.quoteRepository = repository;
   }
 
+  @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Quote> post(@RequestBody Quote quote) {
