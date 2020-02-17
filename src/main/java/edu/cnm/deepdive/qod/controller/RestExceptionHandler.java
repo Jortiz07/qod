@@ -9,10 +9,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @RestControllerAdvice
 public class RestExceptionHandler {
 
-  @ExceptionHandler({NoSuchElementException.class})
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  public void notFound() {
+  @ExceptionHandler(SearchTermTooShortException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Search term too short")
+  public void tooShort(){}
 
-  }
+  @ExceptionHandler({NoSuchElementException.class})
+  @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource not found")
+  public void notFound() {}
+
+  @ExceptionHandler({IllegalArgumentException.class})
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public void badRequest(){}
 
 }
