@@ -1,5 +1,6 @@
-package edu.cnm.deepdive.qod.controller;
+package edu.cnm.deepdive.qod.controller.exception;
 
+import edu.cnm.deepdive.qod.controller.exception.SearchTermTooShortException;
 import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @RestControllerAdvice
-public class RestExceptionHandler {
+public class ControllerExceptionHandler {
 
   @ExceptionHandler(SearchTermTooShortException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Search term too short")

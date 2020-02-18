@@ -1,11 +1,10 @@
-package edu.cnm.deepdive.qod.controller;
+package edu.cnm.deepdive.qod.controller.rest;
 
+import edu.cnm.deepdive.qod.controller.exception.SearchTermTooShortException;
 import edu.cnm.deepdive.qod.model.entity.Quote;
 import edu.cnm.deepdive.qod.model.entity.Source;
 import edu.cnm.deepdive.qod.service.QuoteRepository;
 import edu.cnm.deepdive.qod.service.SourceRepository;
-import java.net.URI;
-import java.util.Objects;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/quotes")
@@ -57,6 +55,16 @@ public class QuoteController {
       throw new SearchTermTooShortException();
     }
     return quoteRepository.getAllByTextContainsOrderByTextAsc(fragment);
+  }
+
+  @GetMapping(value = "/random", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Quote getRandom() {
+    return quoteRepository.getRandom().get();
+  }
+
+  @GetMapping(value = "/random", produces = MediaType.TEXT_PLAIN_VALUE)
+  public String getRandomPlain() {
+    return getRandom().getText();
   }
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
